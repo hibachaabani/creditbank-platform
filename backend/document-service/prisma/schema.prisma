@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Document {
+  id               String           @id @default(uuid())
+  requestId        String           @map("request_id")
+  uploadedBy       String           @map("uploaded_by")
+  docType          DocumentType     @map("doc_type")
+  fileName         String           @map("file_name")
+  originalName     String           @map("original_name")
+  filePath         String           @map("file_path")
+  fileSize         Int              @map("file_size")
+  mimeType         String           @map("mime_type")
+  validationStatus ValidationStatus @default(PENDING) @map("validation_status")
+  validatedBy      String?          @map("validated_by")
+  validationNote   String?          @map("validation_note")
+  uploadedAt       DateTime         @default(now()) @map("uploaded_at")
+  validatedAt      DateTime?        @map("validated_at")
+
+  @@map("documents")
+}
+
+enum DocumentType {
+  CNI
+  PASSEPORT
+  BULLETIN_SALAIRE
+  RELEVE_COMPTE
+  CONTRAT_TRAVAIL
+  ATTESTATION_EMPLOYEUR
+  JUSTIFICATIF_DOMICILE
+  COMPROMIS_VENTE
+  DECLARATION_FISCALE
+  AUTRE
+}
+
+enum ValidationStatus {
+  PENDING
+  VALIDATED
+  REJECTED
+}

@@ -1,0 +1,137 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #EEF4FF
+  BorderColor #4A6CF7
+  FontSize 13
+  FontColor #1a1a2e
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+  FontSize 13
+  FontStyle bold
+}
+skinparam ArrowColor #555555
+skinparam shadowing false
+skinparam defaultFontName Arial
+
+title Diagramme de cas d'utilisation — Système CréditBank
+
+left to right direction
+
+' ── Acteurs ──────────────────────────────────────────
+actor CLIENT   #LightBlue
+actor AGENT    #LightGreen
+actor ANALYST  #Thistle
+actor DECIDER  #Moccasin
+actor ADMIN    #LightCoral
+
+' ── Système ──────────────────────────────────────────
+rectangle "Système CréditBank" {
+
+  usecase "S'authentifier"          as AUTH
+  usecase "Gérer son profil"        as PROFIL
+  usecase "Utiliser le chatbot IA"  as CHAT
+
+  usecase "Créer un dossier"        as CREATE
+  usecase "Simuler un crédit"       as SIM
+  usecase "Uploader des documents"  as UPLOAD
+  usecase "Suivre son dossier"      as SUIVI
+
+  usecase "Réviser un dossier"      as REVISE
+  usecase "Valider des documents"   as VALIDE
+  usecase "Affecter un analyste"    as ASSIGN
+
+  usecase "Lancer l'analyse IA"     as ANALYSE
+  usecase "Consulter le score ML"   as SCORE
+  usecase "Rédiger le rapport"      as RAPPORT
+  usecase "Soumettre l'analyse"     as SUBMIT
+
+  usecase "Voir dossiers en attente" as PENDING
+  usecase "Approuver un crédit"     as APPROVE
+  usecase "Refuser un crédit"       as REJECT
+  usecase "Accord conditionnel"     as COND
+
+  usecase "Gérer les utilisateurs"  as USERS
+  usecase "Consulter les rapports"  as REPORTS
+
+}
+
+' ── Relations CLIENT ──────────────────────────────────
+CLIENT --> AUTH
+CLIENT --> PROFIL
+CLIENT --> CHAT
+CLIENT --> CREATE
+CLIENT --> SIM
+CLIENT --> UPLOAD
+CLIENT --> SUIVI
+
+' ── Relations AGENT ───────────────────────────────────
+AGENT --> AUTH
+AGENT --> PROFIL
+AGENT --> CHAT
+AGENT --> CREATE
+AGENT --> SIM
+AGENT --> REVISE
+AGENT --> VALIDE
+AGENT --> ASSIGN
+
+' ── Relations ANALYST ─────────────────────────────────
+ANALYST --> AUTH
+ANALYST --> PROFIL
+ANALYST --> CHAT
+ANALYST --> ANALYSE
+ANALYST --> SCORE
+ANALYST --> RAPPORT
+ANALYST --> SUBMIT
+
+' ── Relations DECIDER ─────────────────────────────────
+DECIDER --> AUTH
+DECIDER --> PROFIL
+DECIDER --> CHAT
+DECIDER --> SCORE
+DECIDER --> PENDING
+DECIDER --> APPROVE
+DECIDER --> REJECT
+DECIDER --> COND
+
+' ── Relations ADMIN ───────────────────────────────────
+ADMIN --> AUTH
+ADMIN --> PROFIL
+ADMIN --> CHAT
+ADMIN --> CREATE
+ADMIN --> SIM
+ADMIN --> REVISE
+ADMIN --> VALIDE
+ADMIN --> ASSIGN
+ADMIN --> ANALYSE
+ADMIN --> SCORE
+ADMIN --> APPROVE
+ADMIN --> REJECT
+ADMIN --> COND
+ADMIN --> USERS
+ADMIN --> REPORTS
+
+' ── Relations <<include>> ─────────────────────────────
+CREATE  ..> AUTH : <<include>>
+SIM     ..> AUTH : <<include>>
+UPLOAD  ..> AUTH : <<include>>
+SUIVI   ..> AUTH : <<include>>
+REVISE  ..> AUTH : <<include>>
+VALIDE  ..> AUTH : <<include>>
+ASSIGN  ..> AUTH : <<include>>
+ANALYSE ..> AUTH : <<include>>
+SCORE   ..> AUTH : <<include>>
+RAPPORT ..> AUTH : <<include>>
+SUBMIT  ..> AUTH : <<include>>
+PENDING ..> AUTH : <<include>>
+APPROVE ..> AUTH : <<include>>
+REJECT  ..> AUTH : <<include>>
+COND    ..> AUTH : <<include>>
+USERS   ..> AUTH : <<include>>
+REPORTS ..> AUTH : <<include>>
+
+@enduml

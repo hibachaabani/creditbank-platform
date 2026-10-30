@@ -1,0 +1,15 @@
+{
+  "name": "credit-management-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently --names \"AUTH,DOSSIER,DOCUMENT,ANALYSIS,DECISION,FRONT,AI\" --prefix-colors \"blue,yellow,green,magenta,red,cyan,white\" \"npm run start:auth\" \"npm run start:dossier\" \"npm run start:document\" \"npm run start:analysis\" \"npm run start:decision\" \"npm run start:front\" \"npm run start:ai\"",
+    "start:auth":     "cd backend/auth-service     && npm run start:dev",
+    "start:dossier":  "cd backend/dossier-service  && npm run start:dev",
+    "start:document": "cd backend/document-service && npm run start:dev",
+    "start:analysis": "cd backend/analysis-service && npm run start:dev",
+    "start:decision": "cd backend/decision-service && npm run start:dev",
+    "start:front":    "cd frontend && npm run dev",
+    "start:ai":       "cd ai-service && ./start.sh"
+  }
+}

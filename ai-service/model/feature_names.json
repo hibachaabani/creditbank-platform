@@ -1,0 +1,39 @@
+{
+  "numeric_features": [
+    "monthly_income",
+    "existing_debts",
+    "estimated_monthly",
+    "requested_amount",
+    "requested_duration",
+    "debt_ratio",
+    "coverage_ratio",
+    "loan_to_income",
+    "repayment_capacity"
+  ],
+  "categorical_features": [
+    "credit_type"
+  ],
+  "all_features": [
+    "monthly_income",
+    "existing_debts",
+    "estimated_monthly",
+    "requested_amount",
+    "requested_duration",
+    "debt_ratio",
+    "coverage_ratio",
+    "loan_to_income",
+    "repayment_capacity",
+    "credit_type"
+  ],
+  "target": "score",
+  "score_range": [
+    0,
+    1000
+  ],
+  "risk_thresholds": {
+    "LOW": 700,
+    "MEDIUM": 550,
+    "HIGH": 400,
+    "VERY_HIGH": 0
+  }
+}

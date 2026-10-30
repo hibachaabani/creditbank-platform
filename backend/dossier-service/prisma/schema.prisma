@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model CreditRequest {
+  id                String    @id @default(uuid())
+  reference         String    @unique
+  clientId          String    @map("client_id")
+  agentId           String?   @map("agent_id")
+  agencyId          String?   @map("agency_id")
+  creditType        CreditType @map("credit_type")
+  requestedAmount   Decimal   @map("requested_amount") @db.Decimal(15, 2)
+  requestedDuration Int       @map("requested_duration")
+  monthlyIncome     Decimal   @map("monthly_income") @db.Decimal(15, 2)
+  existingDebts     Decimal   @default(0) @map("existing_debts") @db.Decimal(15, 2)
+  purpose           String?
+  status            RequestStatus @default(DRAFT)
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  submittedAt       DateTime? @map("submitted_at")
+  closedAt          DateTime? @map("closed_at")
+
+  statusHistory     StatusHistory[]
+  messages          DossierMessage[]
+
+  @@map("credit_requests")
+}
+
+model StatusHistory {
+  id         String    @id @default(uuid())
+  requestId  String    @map("request_id")
+  request    CreditRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  oldStatus  String?   @map("old_status")
+  newStatus  String    @map("new_status")
+  changedBy  String    @map("changed_by")
+  comment    String?
+  changedAt  DateTime  @default(now()) @map("changed_at")
+
+  @@map("status_history")
+}
+
+model DossierMessage {
+  id         String    @id @default(uuid())
+  requestId  String    @map("request_id")
+  request    CreditRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  senderId   String    @map("sender_id")
+  content    String
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  @@map("dossier_messages")
+}
+
+enum CreditType {
+  IMMOBILIER
+  AUTO
+  CONSOMMATION
+  PROFESSIONNEL
+  ETUDIANT
+}
+
+enum RequestStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  IN_ANALYSIS
+  PENDING_DECISION
+  APPROVED
+  CONDITIONALLY_APPROVED
+  REJECTED
+  ACCEPTED_BY_CLIENT
+  REFUSED_BY_CLIENT
+  ACTIVE
+  CLOSED
+  DEFAULTED
+}
