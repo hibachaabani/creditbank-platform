@@ -10,6 +10,16 @@ Plateforme web qui dématérialise tout le traitement d'une demande de crédit, 
 - **CréditBot** : assistant virtuel (LLM) qui répond aux questions des clients
 - **Sécurité** : authentification JWT (access + refresh token), contrôle d'accès par rôle
 
+## 📸 Aperçu
+
+| Connexion | Tableau de bord client |
+|---|---|
+| ![Connexion](docs/screenshots/connexion.png) | ![Tableau de bord client](docs/screenshots/dashboard-client.png) |
+
+| Analyse IA du risque (XGBoost) | CréditBot, assistant LLM |
+|---|---|
+| ![Scoring IA](docs/screenshots/scoring-ia.png) | ![CréditBot](docs/screenshots/creditbot.png) |
+
 ## 🧱 Architecture
 
 Architecture **microservices** : chaque domaine métier est un service indépendant.
